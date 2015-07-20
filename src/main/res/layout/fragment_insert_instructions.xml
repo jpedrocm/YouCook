@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_fiinstr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/sv_instrs"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_insert_instructions"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/ll_colunas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_instr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/instr"
+                        android:layout_alignParentLeft="true"
+                        android:textSize="15sp"
+                        android:textColor="@color/teal"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/teal"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/itens_instr"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_more_instr"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="+"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:background="@color/teal"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/btn_photo"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="@string/photos"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/teal"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

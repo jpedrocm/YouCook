@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:youcook="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_share"
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:title="share"
+        youcook:showAsAction="ifRoom"/>
+</menu>

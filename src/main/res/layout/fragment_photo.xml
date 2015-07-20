@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@color/teal"
+    android:layout_marginBottom="8dp">
+
+    <ImageButton
+        android:id="@+id/img_photo"
+        android:layout_width="180dp"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white"/>
+
+    <EditText
+        android:id="@+id/et_details"
+        android:layout_width="160dp"
+        android:layout_height="200dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:hint="@string/hint_leg"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:inputType="text"/>
+</RelativeLayout>

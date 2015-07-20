@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color">
+
+    <RelativeLayout
+        android:id="@+id/rl_fsr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_search_recipe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="30dp">
+
+            <LinearLayout
+                android:id="@+id/ll_search_recipe_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/box_has_photo_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/has_photo"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/teal"/>
+
+                <CheckBox
+                    android:id="@+id/box_forno_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forno"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/teal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_difficulty_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_dificuldade_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/difficulty"
+                    android:textSize="15dp"
+                    android:textColor="@color/teal"
+                    android:textStyle="bold"
+                    android:layout_marginRight="10dp"/>
+
+                <Button
+                    android:id="@+id/btn_less_difficult_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:text="-"
+                    android:textColor="@color/teal"/>
+
+                <ImageView
+                    android:id="@+id/im_difficulty_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ic_difficulty_easy"/>
+
+                <Button
+                    android:id="@+id/btn_more_difficult_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:text="+"
+                    android:textColor="@color/teal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_time_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txt_time_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_max"
+                    android:textColor="@color/teal"
+                    android:textStyle="bold"
+                    android:textSize="15dp"/>
+
+                <EditText
+                    android:id="@+id/et_time_search"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:inputType="numberDecimal"
+                    android:background="@color/white"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/txt_minutes_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minutos"
+                    android:textColor="@color/teal"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_classificacao_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/food_types"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/teal"/>
+
+            <CheckBox
+                android:id="@+id/box_sweet_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/doce"
+                android:textSize="15dp"
+                android:textColor="@color/teal"/>
+
+            <CheckBox
+                android:id="@+id/box_salt_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/salgado"
+                android:textSize="15sp"
+                android:textColor="@color/teal"/>
+
+            <CheckBox
+                android:id="@+id/box_vegetarian_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vegan"
+                android:textSize="15sp"
+                android:textColor="@color/teal"/>
+
+            <Button
+                android:id="@+id/btn_pesquisar_search"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="@string/pesquisar"
+                android:textColor="@color/white"
+                android:background="@color/teal"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

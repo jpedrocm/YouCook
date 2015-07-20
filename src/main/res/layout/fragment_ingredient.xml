@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@color/teal"
+    android:orientation="horizontal"
+    android:layout_marginBottom="8dp"
+    android:id="@+id/ll_ing">
+
+    <EditText
+        android:id="@+id/et_qt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:hint="@string/hint_qt"
+        android:maxLength="5"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
+        android:background="@color/white"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/et_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:hint="@string/hint_unit"
+        android:textSize="15sp"
+        android:maxLength="16"
+        android:textColorHint="@color/gray"
+        android:background="@color/white"
+        android:layout_marginLeft="8dp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_de"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/de"/>
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:hint="@string/hint_name"
+        android:textSize="15sp"
+        android:maxLength="12"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:inputType="text"/>
+</LinearLayout>

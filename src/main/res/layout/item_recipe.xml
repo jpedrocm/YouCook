@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/teal"
+    android:padding="5dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/img_difficulty"
+        android:layout_alignBaseline="@+id/img_difficulty"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/img_difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/ic_difficulty_easy"/>
+
+    <TextView
+        android:id="@+id/tv_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:text="@string/by"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_title"/>
+
+    <TextView
+        android:id="@+id/tv_chef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_alignBaseline="@+id/tv_by"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_by"/>
+
+    <ImageView
+        android:id="@+id/img_time"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@mipmap/ic_clock"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_chef"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/tv_by"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBaseline="@+id/img_time"
+        android:layout_toRightOf="@+id/img_time"/>
+
+    <ImageView
+        android:id="@+id/img_favorito"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@mipmap/ic_marked_star"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/img_time"/>
+
+    <TextView
+        android:id="@+id/tv_favorite_times"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/img_time"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBaseline="@+id/img_favorito"
+        android:layout_toRightOf="@+id/img_favorito"
+        android:layout_centerVertical="true"/>
+
+    <ImageView
+        android:id="@+id/img_has_photo"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/img_time"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/tv_favorite_times"
+        android:background="@mipmap/ic_have_photos"/>
+
+</RelativeLayout>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color">
+
+    <RelativeLayout
+        android:id="@+id/rl_fcr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_create_recipe"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tt_title_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textColor="@color/teal"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_alignBaseline="@+id/et_titulo_create"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="10dp"/>
+
+            <EditText
+                android:id="@+id/et_titulo_create"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tt_title_create"
+                android:background="@color/white"
+                android:textColor="@color/black"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:id="@+id/ll_difficulty_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_dificuldade_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/difficulty"
+                    android:textSize="15sp"
+                    android:textColor="@color/teal"
+                    android:textStyle="bold"
+                    android:layout_marginRight="10dp"/>
+
+                <Button
+                    android:id="@+id/btn_less_difficult_create"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:text="-"
+                    android:textColor="@color/teal"/>
+
+                <ImageView
+                    android:id="@+id/im_difficulty_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="easy"
+                    android:background="@mipmap/ic_difficulty_easy"/>
+
+                <Button
+                    android:id="@+id/btn_more_difficult_create"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:text="+"
+                    android:textColor="@color/teal"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_time_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="90dp">
+
+            <TextView
+                android:id="@+id/txt_time_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time"
+                android:textColor="@color/teal"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <EditText
+                android:id="@+id/et_time_create"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/white"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/txt_minutes_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minutos"
+                android:textColor="@color/teal"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/box_forno_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forno"
+                android:textStyle="bold"
+                android:layout_below="@+id/ll_time_create"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/teal"/>
+
+            <LinearLayout
+                android:id="@+id/ll_create_recipe_down"
+                android:orientation="vertical"
+                android:layout_below="@+id/box_forno_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_classificacao_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/food_types"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal"/>
+
+                <CheckBox
+                    android:id="@+id/box_sweet_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/doce"
+                    android:textSize="15sp"
+                    android:textColor="@color/teal"/>
+
+                <CheckBox
+                    android:id="@+id/box_salt_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salgado"
+                    android:textSize="15sp"
+                    android:textColor="@color/teal"/>
+
+                <CheckBox
+                    android:id="@+id/box_vegetarian_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vegan"
+                    android:textSize="15sp"
+                    android:textColor="@color/teal"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_ingredientes_create"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/ll_create_recipe_down"
+                android:text="@string/insert_ingredients"
+                android:background="@color/teal"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

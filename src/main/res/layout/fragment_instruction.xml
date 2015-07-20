@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@color/teal"
+    android:orientation="horizontal"
+    android:layout_marginBottom="8dp"
+    android:id="@+id/rl_inst">
+
+    <EditText
+        android:id="@+id/et_instr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:hint="@string/hint_instr"
+        android:maxLength="24"
+        android:textColorHint="@color/gray"
+        android:textSize="15sp"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_por"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_toLeftOf="@+id/et_duration"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/por"/>
+
+    <EditText
+        android:id="@+id/et_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:maxLength="12"
+        android:hint="@string/hint_duration"
+        android:textSize="15sp"
+        android:layout_alignParentRight="true"
+        android:background="@color/white"
+        android:inputType="text"/>
+</RelativeLayout>
