@@ -50,4 +50,6 @@
     <string name="caract">Caracteristicas:</string>
     <string name="favoritar">Favoritar</string>
     <string name="prepara">Preparar prato</string>
+    <string name="ver_inst">Ver instrucoes</string>
+    <string name="fim_uso">Terminar uso</string>
 </resources>

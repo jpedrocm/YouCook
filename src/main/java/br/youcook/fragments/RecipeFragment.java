@@ -122,9 +122,11 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        UseIngredientsFragment newFragment = new UseIngredientsFragment();
 
         FragmentTransaction ft = fm.beginTransaction();
-
+        ft.replace(R.id.rl_fur, newFragment);
+        ft.addToBackStack(null);
         ft.commit();
     }
 }
