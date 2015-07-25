@@ -1,19 +1,14 @@
 package br.youcook.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.ParseException;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -22,13 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.parse.Parse;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-
-import org.w3c.dom.Text;
-
-import br.youcook.MainActivity;
 import br.youcook.R;
 
 public class ProfileFragment extends Fragment {
