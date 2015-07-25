@@ -25,6 +25,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
     private TabHost tabHost;
     private ViewPager viewPager;
     private TabsPagerAdapter pagerAdapter;
+    public static MainActivity self;
 
     class TabFactory implements TabContentFactory {
 
@@ -45,7 +46,7 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
+        self = this;
         this.initialiseTabHost(savedInstanceState);
         if (savedInstanceState != null) {
             tabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
@@ -109,5 +110,9 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    public void mudarAba(int position){
+        this.onPageSelected(position);
     }
 }

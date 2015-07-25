@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import br.youcook.MainActivity;
 import br.youcook.R;
 import br.youcook.fragments.adapter.RecipeAdapter;
 import br.youcook.objects.Recipe;
@@ -72,6 +73,7 @@ public class SearchResultsFragment extends Fragment implements View.OnClickListe
             ft.replace(R.id.rl_fur, newFragment);
             ft.addToBackStack(null);
             ft.commit();
+            MainActivity.self.mudarAba(3);
         }
     }
 }
