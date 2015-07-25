@@ -244,7 +244,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
                         ft.addToBackStack(null);
                         ft.commit();
                     } else {
-                        new AlertDialog.Builder(getActivity()).setTitle("Falha!")
+                        new AlertDialog.Builder(getActivity()).setTitle("Ops!")
                                 .setMessage("Nao houve resultados.")
                                 .setIcon(R.id.alertTitle)
                                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
