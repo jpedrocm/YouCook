@@ -21,14 +21,10 @@ import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import java.lang.reflect.Array;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.youcook.R;
-import br.youcook.objects.Ingredient;
-import br.youcook.objects.Instruction;
 import br.youcook.objects.Recipe;
 
 public class SearchRecipeFragment extends Fragment implements View.OnClickListener {

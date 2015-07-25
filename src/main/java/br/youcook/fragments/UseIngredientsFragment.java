@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -28,8 +27,6 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
     Button btn_usar_instrucoes;
 
     ListView lv_ings;
-
-    Recipe recipe;
 
     android.support.v4.app.FragmentManager fm;
 

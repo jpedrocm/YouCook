@@ -3,7 +3,6 @@ package br.youcook.objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 public class Ingredient implements Parcelable {
 
     String unit;

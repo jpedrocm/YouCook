@@ -2,14 +2,6 @@ package br.youcook.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-
-import br.youcook.R;
-
 
 public class Recipe implements Parcelable {
 

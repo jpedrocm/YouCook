@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.youcook.R;
-import br.youcook.objects.Ingredient;
 import br.youcook.objects.Instruction;
 
 public class InstructionAdapter extends BaseAdapter implements View.OnClickListener
