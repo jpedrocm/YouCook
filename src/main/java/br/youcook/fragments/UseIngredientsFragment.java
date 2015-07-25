@@ -24,6 +24,8 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
 
     ListView lv_ings;
 
+    Recipe recipe;
+
     android.support.v4.app.FragmentManager fm;
 
     ArrayList<Ingredient> ingredients;
