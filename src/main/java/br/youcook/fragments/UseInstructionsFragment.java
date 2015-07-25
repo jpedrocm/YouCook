@@ -36,6 +36,7 @@ public class UseInstructionsFragment extends Fragment implements View.OnClickLis
         this.inflater = inflater;
         lv_inst = (ListView) rootView.findViewById(R.id.lv_use_inst);
         args = getArguments();
+        instructions = args.getParcelableArrayList("instrucoes");
         lv_inst.setAdapter(new InstructionAdapter(inflater, instructions));
 
         temInstrucao = 0;
