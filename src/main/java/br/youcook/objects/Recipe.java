@@ -50,11 +50,13 @@ public class Recipe implements Parcelable {
         this.bs[3] = sal;
         this.sweet = doce;
         this.bs[4] = doce;
+        this.id = id;
     }
 
     public Recipe(String id,String title, String difficulty, String chef, double time,
-                  int stars, boolean foto,
-                  boolean sal, boolean doce, boolean forno, boolean vegan){
+                  int stars, boolean foto, boolean sal, boolean doce,
+                  boolean forno, boolean vegan){
+        this.id = id;
         this.title = title;
         this.difficulty = difficulty;
         this.chef = chef;
@@ -115,6 +117,10 @@ public class Recipe implements Parcelable {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override

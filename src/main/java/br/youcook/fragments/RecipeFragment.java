@@ -1,5 +1,10 @@
 package br.youcook.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import br.youcook.R;
@@ -36,6 +44,8 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     FragmentManager fm;
 
+    ConnectivityManager connManager;
+
     Button btn_preparar;
 
     Recipe receita;
@@ -58,6 +68,9 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         args = getArguments();
 
         fm = getFragmentManager();
+
+        connManager = (ConnectivityManager) getActivity().getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
 
         receita = args.getParcelable("receita");
 
@@ -110,7 +123,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                     favorito = true;
                 } else {
                     img_favoritar.setBackgroundResource(R.mipmap.ic_unmarked_star);
-                    favorito = true;
+                    favorito = false;
                 }
             }
         });
@@ -122,9 +135,25 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        UseIngredientsFragment newFragment = new UseIngredientsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", receita.getId());
 
+        NetworkInfo net = connManager.getActiveNetworkInfo();
+
+        if(net == null || !net.isConnected()){
+            new AlertDialog.Builder(getActivity()).setTitle("Falha!")
+                    .setMessage("Ligue sua internet.")
+                    .setIcon(R.id.alertTitle)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){}}).show();
+            return;
+        }
+
+        UseIngredientsFragment newFragment = new UseIngredientsFragment();
         FragmentTransaction ft = fm.beginTransaction();
+
+        newFragment.setArguments(bundle);
         ft.replace(R.id.rl_fur, newFragment);
         ft.addToBackStack(null);
         ft.commit();
