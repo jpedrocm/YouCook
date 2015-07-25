@@ -1,5 +1,10 @@
 package br.youcook.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -28,6 +33,8 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
 
     android.support.v4.app.FragmentManager fm;
 
+    ConnectivityManager connManager;
+
     ArrayList<Ingredient> ingredients;
     int temIngrediente;
 
@@ -47,6 +54,9 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
 
         fm = getFragmentManager();
 
+        connManager = (ConnectivityManager) getActivity().getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
         btn_usar_instrucoes = (Button) rootView.findViewById(R.id.btn_use_instructions);
 
         btn_usar_instrucoes.setOnClickListener(this);
@@ -55,6 +65,20 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
     }
 
     public void onClick(View v) {
+        args.getString("id_receita");
+
+        NetworkInfo net = connManager.getActiveNetworkInfo();
+
+        if(net == null || !net.isConnected()){
+            new AlertDialog.Builder(getActivity()).setTitle("Falha!")
+                    .setMessage("Ligue sua internet.")
+                    .setIcon(R.id.alertTitle)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){}}).show();
+            return;
+        }
+
         UseInstructionsFragment newFragment = new UseInstructionsFragment();
 
         FragmentTransaction ft = fm.beginTransaction();
