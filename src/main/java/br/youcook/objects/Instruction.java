@@ -33,7 +33,7 @@ public class Instruction implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel arg0, int arg1) {
-        arg0.writeString(dur);
         arg0.writeString(instrucao);
+        arg0.writeString(dur);
     }
 }

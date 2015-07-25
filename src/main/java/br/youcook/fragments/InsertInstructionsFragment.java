@@ -114,7 +114,7 @@ public class InsertInstructionsFragment extends Fragment implements View.OnClick
                 return;
             }
 
-            inst.add(new Instruction(dur, instrucao));
+            inst.add(new Instruction(instrucao, dur));
         }
 
         args.putParcelableArrayList("inst", inst);
