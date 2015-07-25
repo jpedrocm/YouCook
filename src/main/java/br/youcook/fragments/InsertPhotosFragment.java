@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -53,6 +54,9 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
 
     boolean justClicked;
     boolean temPhotos;
+
+    ArrayList<Ingredient> ingredientes;
+    ArrayList<Instruction> instrucoes;
 
     EditText et_photo1;
     EditText et_photo2;
@@ -143,19 +147,15 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
     }
 
     public void onClick(View v) {
-        CreateRecipeFragment newFragment = new CreateRecipeFragment();
 
         Drawable p1, p2;
 
-        ParseObject recipe = new ParseObject("Recipe");
+        final ParseObject recipe = new ParseObject("Recipe");
         ParseFile file1, file2;
 
         String titulo, dificuldade, details1, details2;
         double tempo;
         boolean doce, salgado, vegan, forno;
-
-        ArrayList<Ingredient> ingredientes;
-        ArrayList<Instruction> instrucoes;
 
         instrucoes = args.getParcelableArrayList("inst");
         ingredientes = args.getParcelableArrayList("ings");
@@ -167,13 +167,37 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
         forno = args.getBoolean("forno");
         dificuldade = args.getString("diff");
 
+        user = ParseUser.getCurrentUser();
+
+        if(user==null){
+            new AlertDialog.Builder(getActivity()).setTitle("Falha!")
+                    .setMessage("Logue no perfil editando seu nome.")
+                    .setIcon(R.id.alertTitle)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){}}).show();
+            return;
+        }
+
+        NetworkInfo net = connManager.getActiveNetworkInfo();
+
+        if(net == null || !net.isConnected()){
+            new AlertDialog.Builder(getActivity()).setTitle("Falha!")
+                    .setMessage("Ligue sua internet.")
+                    .setIcon(R.id.alertTitle)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){}}).show();
+            return;
+        }
+
         recipe.put("tempo", tempo);
         recipe.put("salgado", salgado);
         recipe.put("doce",doce);
         recipe.put("forno",forno);
         recipe.put("vegan", vegan);
         recipe.put("dificuldade",dificuldade);
-        recipe.put("titulo",titulo);
+        recipe.put("titulo", titulo);
         recipe.put("foto", temPhotos);
         recipe.put("favoritos", 0);
 
@@ -211,64 +235,47 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
             recipe.put("d2", JSONObject.NULL);
         }
 
-        ArrayList<ParseObject> ig = new ArrayList<>();
-
-        for(int i = 0; i < ingredientes.size(); i++){
-            ParseObject atual = new ParseObject("Ingrediente");
-            atual.put("nome_ingrediente", ingredientes.get(i).getName());
-            atual.put("unidade_ingrediente", ingredientes.get(i).getUnit());
-            atual.put("quantidade_ingrediente", ingredientes.get(i).getQt());
-            atual.put("id_ingrediente", recipe.getObjectId());
-            ig.add(atual);
-        }
-
-        ArrayList<ParseObject> it = new ArrayList<>();
-
-        for(int i = 0; i < instrucoes.size(); i++){
-            ParseObject atual = new ParseObject("Instrucao");
-            atual.put("duracao_instrucao", instrucoes.get(i).getDur());
-            atual.put("nome_instrucao", instrucoes.get(i).getInstrucao());
-            atual.put("id_instrucao", recipe.getObjectId());
-            it.add(atual);
-        }
-
-        recipe.put("Ingredientes", ig);
-        recipe.put("Instrucoes", it);
-
-        NetworkInfo net = connManager.getActiveNetworkInfo();
-
-        if(net == null || !net.isConnected()){
-            new AlertDialog.Builder(getActivity()).setTitle("Falha!")
-                    .setMessage("Ligue sua internet.")
-                    .setIcon(R.id.alertTitle)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){}}).show();
-            return;
-        }
-
-        user = ParseUser.getCurrentUser();
-
-        if(user==null){
-            new AlertDialog.Builder(getActivity()).setTitle("Falha!")
-                    .setMessage("Logue no perfil editando seu nome.")
-                    .setIcon(R.id.alertTitle)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){}}).show();
-            return;
-        }
-
         recipe.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                Log.d("fim", "aee");
+                if (e == null) {
+
+                    String id = recipe.getObjectId();
+
+                    ArrayList<ParseObject> ig_e_it = new ArrayList<>();
+
+                    for (int i = 0; i < ingredientes.size(); i++) {
+                        ParseObject atual = new ParseObject("Ingrediente");
+                        atual.put("nome_ingrediente", ingredientes.get(i).getName());
+                        atual.put("unidade_ingrediente", ingredientes.get(i).getUnit());
+                        atual.put("quantidade_ingrediente", ingredientes.get(i).getQt());
+                        atual.put("id_receita", id);
+                        ig_e_it.add(atual);
+                    }
+
+                    for (int i = 0; i < instrucoes.size(); i++) {
+                        ParseObject atual = new ParseObject("Instrucao");
+                        atual.put("duracao_instrucao", instrucoes.get(i).getDur());
+                        atual.put("nome_instrucao", instrucoes.get(i).getInstrucao());
+                        atual.put("id_receita", id);
+                        ig_e_it.add(atual);
+                    }
+
+                    ParseObject.saveAllInBackground(ig_e_it, new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            Log.d("terminou", "true");
+                        }
+                    });
+
+                    CreateRecipeFragment newFragment = new CreateRecipeFragment();
+
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.rl_fcr, newFragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
             }
         });
-
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.rl_fcr, newFragment);
-        ft.addToBackStack(null);
-        ft.commit();
     }
 }
