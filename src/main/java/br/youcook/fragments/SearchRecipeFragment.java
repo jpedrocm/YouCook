@@ -200,10 +200,7 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
         }
 
         final Bundle args = new Bundle();
-        final boolean[] c = new boolean[2];
-        c[0] = false;
-        c[1] = false;
-
+        final boolean[] c = new boolean[1];
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -217,7 +214,6 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
                     boolean doce, salgado, foto, forno, vegan;
                     String titulo, dificuldade, id, chef;
                     double tempo, stars;
-                    ParseObject x;
 
                     for (ParseObject listElement : list) {
                         doce = listElement.getBoolean("doce");
@@ -237,45 +233,23 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
                         recipes.add(aux);
                     }
 
-                    Log.d("que", "foi?");
-
                     if (!c[0]){
-                        c[1] = true;
+                        args.putParcelableArrayList("receitas", recipes);
+                        SearchResultsFragment newFragment = new SearchResultsFragment();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        Log.d("quantidade de itens",""+recipes.size());
+                        newFragment.setArguments(args);
+
+                        ft.replace(R.id.rl_fsr, newFragment);
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    } else {
+                        //sem results
                     }
                 } else {
-                    c[0] = true;
                     Log.d("score", "Error: " + e.getMessage());
                 }
             }
         });
-
-        try {
-            Thread.sleep(2200, 5);
-            Log.d("tenta", "espera");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if(!c[0]){
-            args.putParcelableArrayList("receitas", recipes);
-            SearchResultsFragment newFragment = new SearchResultsFragment();
-            FragmentTransaction ft = fm.beginTransaction();
-            Log.d("quantidade de itens",""+recipes.size());
-            newFragment.setArguments(args);
-
-            ft.replace(R.id.rl_fsr, newFragment);
-            ft.addToBackStack(null);
-            ft.commit();
-        } else {
-                new AlertDialog.Builder(getActivity()).setTitle("Ops!")
-                        .setMessage("Não houve resultados!")
-                        .setIcon(R.id.alertTitle)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        }).show();
-
-        }
     }
 }
