@@ -47,7 +47,7 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
         View rootView = inflater.inflate(R.layout.fragment_have_ingredients, container, false);
         this.inflater = inflater;
         lv_ings = (ListView) rootView.findViewById(R.id.lv_use_ings);
-        args = getArguments();
+        ingredients = args.getParcelableArrayList("ingredientes");
         lv_ings.setAdapter(new IngredientAdapter(inflater, ingredients));
 
         temIngrediente = 0;
