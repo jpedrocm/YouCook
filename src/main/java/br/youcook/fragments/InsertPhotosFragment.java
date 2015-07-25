@@ -1,6 +1,5 @@
 package br.youcook.fragments;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -52,13 +51,15 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
 
     ParseUser user;
 
-    boolean justClicked1;
+    boolean justClicked;
     boolean temPhotos;
 
     EditText et_photo1;
     EditText et_photo2;
 
     android.support.v4.app.FragmentManager fm;
+
+    ConnectivityManager connManager;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -79,27 +80,29 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
 
         fm = getFragmentManager();
 
+        connManager = (ConnectivityManager) getActivity().getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
         args = getArguments();
 
         btn_fim = (Button) rootView.findViewById(R.id.btn_finalizar);
 
-        btn_fim.setOnClickListener(this);
-
         temPhotos = false;
+
+        btn_fim.setOnClickListener(this);
 
         btn_photo1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                justClicked1 = true;
+                justClicked = true;
                 dispatchTakePictureIntent();
             }
         });
 
-
         btn_photo2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                justClicked1 = false;
+                justClicked = false;
                 dispatchTakePictureIntent();
             }
         });
@@ -119,7 +122,7 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
             extras = data.getExtras();
             photo_now = (Bitmap) extras.get("data");
-            if(justClicked1){
+            if(justClicked){
                 btn_photo1.setImageBitmap(photo_now);
                 photo_now = null;
                 txt1.setVisibility(View.INVISIBLE);
@@ -132,16 +135,22 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    public byte[] Bitmap2Byte(Drawable photo){
+        Bitmap bitmap = ((BitmapDrawable) photo).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return (stream.toByteArray());
+    }
+
     public void onClick(View v) {
         CreateRecipeFragment newFragment = new CreateRecipeFragment();
 
-        String details1, details2;
         Drawable p1, p2;
 
         ParseObject recipe = new ParseObject("Recipe");
         ParseFile file1, file2;
 
-        String titulo, dificuldade;
+        String titulo, dificuldade, details1, details2;
         double tempo;
         boolean doce, salgado, vegan, forno;
 
@@ -177,37 +186,20 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
             recipe.put("details2", details2);
 
             if(p1==null){
-                Bitmap bitmap = ((BitmapDrawable) p2).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitmapdata2 = stream.toByteArray();
+                file2 = new ParseFile("foto_receita2.png", Bitmap2Byte(p2));
 
-                file2 = new ParseFile("foto_receita1.png", bitmapdata2);
                 recipe.put("d2", file2);
                 recipe.put("d1", JSONObject.NULL);
 
             } else if(p2==null){
-                Bitmap bitmap = ((BitmapDrawable) p1).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitmapdata1 = stream.toByteArray();
-                file1 = new ParseFile("foto_receita1.png", bitmapdata1);
+                file1 = new ParseFile("foto_receita1.png", Bitmap2Byte(p1));
 
                 recipe.put("d1", file1);
                 recipe.put("d2", JSONObject.NULL);
 
             } else {
-                Bitmap bitmap = ((BitmapDrawable) p1).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitmapdata1 = stream.toByteArray();
-                file1 = new ParseFile("foto_receita1.png", bitmapdata1);
-
-                bitmap = ((BitmapDrawable) p2).getBitmap();
-                stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitmapdata2 = stream.toByteArray();
-                file2 = new ParseFile("foto_receita2.png", bitmapdata2);
+                file1 = new ParseFile("foto_receita1.png", Bitmap2Byte(p1));
+                file2 = new ParseFile("foto_receita2.png", Bitmap2Byte(p2));
 
                 recipe.put("d1", file1);
                 recipe.put("d2", file2);
@@ -220,29 +212,29 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
         }
 
         ArrayList<ParseObject> ig = new ArrayList<>();
-        ArrayList<ParseObject> it = new ArrayList<>();
 
         for(int i = 0; i < ingredientes.size(); i++){
             ParseObject atual = new ParseObject("Ingrediente");
             atual.put("nome_ingrediente", ingredientes.get(i).getName());
             atual.put("unidade_ingrediente", ingredientes.get(i).getUnit());
             atual.put("quantidade_ingrediente", ingredientes.get(i).getQt());
+            atual.put("id_ingrediente", recipe.getObjectId());
             ig.add(atual);
         }
 
+        ArrayList<ParseObject> it = new ArrayList<>();
+
         for(int i = 0; i < instrucoes.size(); i++){
-            Log.d("what", "q");
             ParseObject atual = new ParseObject("Instrucao");
             atual.put("duracao_instrucao", instrucoes.get(i).getDur());
             atual.put("nome_instrucao", instrucoes.get(i).getInstrucao());
+            atual.put("id_instrucao", recipe.getObjectId());
             it.add(atual);
         }
 
         recipe.put("Ingredientes", ig);
         recipe.put("Instrucoes", it);
 
-        ConnectivityManager connManager = (ConnectivityManager) getActivity().getApplicationContext().
-                getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo net = connManager.getActiveNetworkInfo();
 
         if(net == null || !net.isConnected()){
@@ -254,7 +246,7 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
                         public void onClick(DialogInterface dialog, int which){}}).show();
             return;
         }
-        ParseObject person = new ParseObject("Person");
+
         user = ParseUser.getCurrentUser();
 
         if(user==null){
@@ -266,10 +258,6 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
                         public void onClick(DialogInterface dialog, int which){}}).show();
             return;
         }
-        String username = user.getUsername();
-        person.put("nome", username);
-        recipe.put("chef", person);
-        recipe.put("chefe", username);
 
         recipe.saveInBackground(new SaveCallback() {
             @Override
