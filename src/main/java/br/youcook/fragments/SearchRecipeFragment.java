@@ -244,7 +244,12 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
                         ft.addToBackStack(null);
                         ft.commit();
                     } else {
-                        //sem results
+                        new AlertDialog.Builder(getActivity()).setTitle("Falha!")
+                                .setMessage("Nao houve resultados.")
+                                .setIcon(R.id.alertTitle)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which){}}).show();
                     }
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
