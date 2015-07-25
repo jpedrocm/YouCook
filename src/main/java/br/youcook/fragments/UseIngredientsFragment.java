@@ -14,13 +14,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import br.youcook.R;
 import br.youcook.fragments.adapter.IngredientAdapter;
-import br.youcook.fragments.adapter.RecipeAdapter;
 import br.youcook.objects.Ingredient;
-import br.youcook.objects.Recipe;
+import br.youcook.objects.Instruction;
 
 public class UseIngredientsFragment extends Fragment implements View.OnClickListener {
 
@@ -33,7 +38,10 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
     ConnectivityManager connManager;
 
     ArrayList<Ingredient> ingredients;
+
     int temIngrediente;
+
+    String id;
 
     LayoutInflater inflater;
 
@@ -50,6 +58,8 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
 
         temIngrediente = 0;
 
+        id = args.getString("id_receita");
+
         fm = getFragmentManager();
 
         connManager = (ConnectivityManager) getActivity().getApplicationContext().
@@ -63,7 +73,6 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
     }
 
     public void onClick(View v) {
-        args.getString("id_receita");
 
         NetworkInfo net = connManager.getActiveNetworkInfo();
 
@@ -77,11 +86,34 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
             return;
         }
 
-        UseInstructionsFragment newFragment = new UseInstructionsFragment();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Instrucao");
+        query.whereEqualTo("id_receita", id);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+                    String instrucao, duration;
 
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.rl_fuing, newFragment);
-        ft.addToBackStack(null);
-        ft.commit();
+                    Bundle bundle = new Bundle();
+
+                    ArrayList<Instruction> instructions = new ArrayList<>();
+
+                    for (ParseObject listElement : list) {
+                        instrucao = listElement.getString("nome_instrucao");
+                        duration = listElement.getString("duracao_instrucao");
+                        instructions.add(new Instruction(instrucao, duration));
+                    }
+
+                    bundle.putParcelableArrayList("instrucoes", instructions);
+
+                    UseInstructionsFragment newFragment = new UseInstructionsFragment();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    newFragment.setArguments(bundle);
+                    ft.replace(R.id.rl_fuing, newFragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+            }
+        });
     }
 }
