@@ -18,16 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.youcook.R;
 import br.youcook.objects.Ingredient;
@@ -55,8 +52,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     ConnectivityManager connManager;
 
-    ArrayList<Ingredient> ingredients;
-
     Button btn_preparar;
 
     Recipe receita;
@@ -79,8 +74,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         args = getArguments();
 
         fm = getFragmentManager();
-
-        ingredients = new ArrayList<>();
 
         connManager = (ConnectivityManager) getActivity().getApplicationContext().
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -148,8 +141,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
-        bundle.putString("id_receita", receita.getId());
 
         NetworkInfo net = connManager.getActiveNetworkInfo();
 
@@ -163,29 +154,37 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Recipe");
-        query.whereEqualTo("objectId", receita.getId());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Ingrediente");
+        query.whereEqualTo("id_receita", receita.getId());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
-                    Log.d("score", "Retrieved " + list.size() + " scores");
-                    Ingredient aux;
+                    Bundle bundle = new Bundle();
+                    String unit, nome;
+                    double qt;
+
+                    bundle.putString("id_receita", receita.getId());
+
+                    ArrayList<Ingredient> ingredientes = new ArrayList<>();
 
                     for (ParseObject listElement : list) {
-
+                            nome = listElement.getString("nome_ingrediente");
+                            unit = listElement.getString("unidade_ingrediente");
+                            qt = listElement.getDouble("quantidade_ingrediente");
+                            ingredientes.add(new Ingredient(unit,nome,qt));
                     }
+
+                    bundle.putParcelableArrayList("ingredientes", ingredientes);
+
+                    UseIngredientsFragment newFragment = new UseIngredientsFragment();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    newFragment.setArguments(bundle);
+                    ft.replace(R.id.rl_fur, newFragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
             }
-
         });
-
-            UseIngredientsFragment newFragment = new UseIngredientsFragment();
-            FragmentTransaction ft = fm.beginTransaction();
-
-            newFragment.setArguments(bundle);
-            ft.replace(R.id.rl_fur,newFragment);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
     }
+}
