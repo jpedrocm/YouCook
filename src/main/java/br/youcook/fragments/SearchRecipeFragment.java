@@ -175,6 +175,13 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
             return;
         }
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Aguarde!");
+        builder.setMessage("Buscando dados");
+        builder.setCancelable(false);
+        final AlertDialog alerta = builder.create();
+        alerta.show();
+
         String sMinutos = et_time.getText().toString().trim();
 
         if(!sMinutos.equals("")){
@@ -239,7 +246,9 @@ public class SearchRecipeFragment extends Fragment implements View.OnClickListen
                         ft.replace(R.id.rl_fsr, newFragment);
                         ft.addToBackStack(null);
                         ft.commit();
+                        alerta.cancel();
                     } else {
+                        alerta.cancel();
                         new AlertDialog.Builder(getActivity()).setTitle("Ops!")
                                 .setMessage("Nao houve resultados.")
                                 .setIcon(R.id.alertTitle)

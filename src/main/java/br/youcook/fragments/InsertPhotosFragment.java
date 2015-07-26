@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import br.youcook.MainActivity;
 import br.youcook.R;
 import br.youcook.objects.Ingredient;
 import br.youcook.objects.Instruction;
@@ -190,6 +191,13 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
             return;
         }
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Aguarde!");
+        builder.setMessage("Enviando dados");
+        builder.setCancelable(false);
+        final AlertDialog alerta = builder.create();
+        alerta.show();
+
         recipe.put("tempo", tempo);
         recipe.put("salgado", salgado);
         recipe.put("doce",doce);
@@ -237,6 +245,7 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
         recipe.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
+
                 if (e == null) {
 
                     String id = recipe.getObjectId();
@@ -263,7 +272,8 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
                     ParseObject.saveAllInBackground(ig_e_it, new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            Log.d("terminou", "true");
+                            if (e == null)
+                                Log.d("terminou", "true");
                         }
                     });
 
@@ -273,6 +283,7 @@ public class InsertPhotosFragment extends Fragment implements View.OnClickListen
                     ft.replace(R.id.rl_fcr, newFragment);
                     ft.addToBackStack(null);
                     ft.commit();
+                    alerta.cancel();
                 }
             }
         });
