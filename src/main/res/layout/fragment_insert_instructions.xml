@@ -75,8 +75,8 @@
 
                 <Button
                     android:id="@+id/btn_photo"
-                    android:layout_width="140dp"
-                    android:layout_height="60dp"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
                     android:text="@string/photos_e_fim"
                     android:textColor="@color/white"
                     android:layout_marginTop="10dp"
