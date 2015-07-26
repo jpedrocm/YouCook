@@ -1,6 +1,5 @@
 package br.youcook;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -21,7 +20,6 @@ import br.youcook.fragments.adapter.TabsPagerAdapter;
 
 public class MainActivity extends FragmentActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
-    String user_name;
     private TabHost tabHost;
     private ViewPager viewPager;
     private TabsPagerAdapter pagerAdapter;
@@ -77,11 +75,8 @@ public class MainActivity extends FragmentActivity implements TabHost.OnTabChang
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
         tabHost.setup();
         MainActivity.AddTab(this, this.tabHost, this.tabHost.newTabSpec("Tab1").setIndicator("Profile"));
-       // mTabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.mipmap.ic_tab_profile);
         MainActivity.AddTab(this, this.tabHost, this.tabHost.newTabSpec("Tab2").setIndicator("Create"));
-        //mTabHost.getTabWidget().getChildAt(1).setBackgroundResource();
         MainActivity.AddTab(this, this.tabHost, this.tabHost.newTabSpec("Tab3").setIndicator("Search"));
-        //mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(-1000);
         MainActivity.AddTab(this, this.tabHost, this.tabHost.newTabSpec("Tab4").setIndicator("Use"));
 
         tabHost.setOnTabChangedListener(this);
