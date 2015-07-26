@@ -106,7 +106,7 @@ public class InsertIngredientsFragment extends Fragment implements View.OnClickL
             name = aux.getString("name");
             qt = aux.getDouble("qt");
 
-            if(name.equals("") || unit.equals("") || qt <=0){
+            if(name.equals("") || qt <=0){
                 new AlertDialog.Builder(getActivity()).setTitle("Campo obrigatório!")
                         .setMessage("Preecha o ingrediente " + (i + 1) + " por completo.")
                         .setIcon(R.id.alertTitle)
@@ -115,6 +115,9 @@ public class InsertIngredientsFragment extends Fragment implements View.OnClickL
                             public void onClick(DialogInterface dialog, int which){}}).show();
                 ings.clear();
                 return;
+            } else if(unit.equals("")){
+                if (qt==1) unit = "unidade";
+                else unit = "unidades";
             }
 
             ings.add(new Ingredient(unit, name, qt));
