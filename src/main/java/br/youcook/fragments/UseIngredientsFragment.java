@@ -88,11 +88,13 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Instrucao");
         query.whereEqualTo("id_receita", id);
+        query.orderByAscending("posicao");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if (e == null) {
                     String instrucao, duration;
+                    int posicao;
 
                     Bundle bundle = new Bundle();
 
@@ -101,7 +103,8 @@ public class UseIngredientsFragment extends Fragment implements View.OnClickList
                     for (ParseObject listElement : list) {
                         instrucao = listElement.getString("nome_instrucao");
                         duration = listElement.getString("duracao_instrucao");
-                        instructions.add(new Instruction(instrucao, duration));
+                        posicao = listElement.getInt("posicao");
+                        instructions.add(new Instruction(instrucao, duration, posicao));
                     }
 
                     bundle.putParcelableArrayList("instrucoes", instructions);

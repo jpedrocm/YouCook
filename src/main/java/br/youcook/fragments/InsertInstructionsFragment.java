@@ -103,7 +103,7 @@ public class InsertInstructionsFragment extends Fragment implements View.OnClick
             dur = aux.getString("dur");
             instrucao = aux.getString("instr");
 
-            if(dur.equals("") || instrucao.equals("")){
+            if(instrucao.equals("")){
                 new AlertDialog.Builder(getActivity()).setTitle("Campo obrigatório!")
                         .setMessage("Preecha a instrucao " + (i + 1) + " por completo.")
                         .setIcon(R.id.alertTitle)
@@ -112,9 +112,11 @@ public class InsertInstructionsFragment extends Fragment implements View.OnClick
                             public void onClick(DialogInterface dialog, int which){}}).show();
                 inst.clear();
                 return;
+            } else if(dur.equals("")){
+                dur = "tempo necessario";
             }
 
-            inst.add(new Instruction(instrucao, dur));
+            inst.add(new Instruction(instrucao, dur, i));
         }
 
         args.putParcelableArrayList("inst", inst);
